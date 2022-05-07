@@ -15,11 +15,32 @@ CREATE TABLE Users (
     pword VARCHAR(50) NOT NULL
 );
 
+CREATE TABLE Users_Cookbooks(
+    userId INT REFERENCES Users(id),
+    cookbookId INT REFERENCES Cookbooks(id)
+
+);
+
+CREATE TABLE Users_Mealplans(
+    userId INT REFERENCES Users(id),
+    mealplanId INT REFERNECES Mealplans(id)
+);
+
+CREATE TABLE Users_Recipes(
+    userId INT REFERENCES Users(id),
+    recipeId INT REFERENCES Recipes(id)
+);
+
 CREATE TABLE Cookbooks(
     id SERIAL PRIMARY KEY,
     favorite BOOLEAN,
     createdAt DATE NOT NULL,
     updatedAt DATE
+);
+
+CREATE TABLE Cookbooks_Recipes(
+    cookbookId INT REFERENCES Cookbooks(id),
+    recipeId INT REFERENCES Recipes(id)
 );
 
 CREATE TABLE Mealplans(
@@ -31,17 +52,25 @@ CREATE TABLE Mealplans(
 create type measurements as enum('cup','tablespoon','teaspoon');
 
 CREATE TABLE Ingredients(
+    id SERIAL PRIMARY KEY,
     name VARCHAR(50) UNIQUE NOT NULL,
     quantity FLOAT NOT NULL,
     measurement measurements 
 );
 
 CREATE TABLE Recipes(
+    id SERIAL PRIMARY KEY,
     name VARCHAR(50) UNIQUE NOT NULL,
+    instructions text[],
     cookTime TIME,
     prepTime TIME,
     favorite BOOLEAN,
     public, BOOLEAN
+);
+
+CREATE TABLE Recipes_Ingredients(
+    recipeId INT REFERENCES Recipes(id),
+    ingredientId INT REFERENCES Ingredients(id)
 );
 
 
