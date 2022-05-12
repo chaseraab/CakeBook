@@ -1,2 +1,6 @@
-INSERT INTO users (username, pword) VALUES ('okasten', 'password');
-select * from users;
+CREATE TABLE Users (
+    id INT AUTO_INCREMENT,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    pword VARCHAR(50) NOT NULL,
+    PRIMARY KEY (id)
+);
