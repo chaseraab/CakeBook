@@ -7,7 +7,7 @@ public class Ingredient {
     String name;
     Integer quantity;
 
-    public Ingredient() {
+    public Ingredient(){
 
     }
 

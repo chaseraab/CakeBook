@@ -33,6 +33,7 @@ CREATE TABLE Users_Recipes(
 
 CREATE TABLE Cookbooks(
     id SERIAL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
     favorite BOOLEAN,
     createdAt DATE NOT NULL,
     updatedAt DATE
@@ -45,7 +46,7 @@ CREATE TABLE Cookbooks_Recipes(
 
 CREATE TABLE Mealplans(
     id SERIAL PRIMARY KEY,
-    name VARCHAR(50) UNIQUE NOT NULL,
+    name VARCHAR(50) NOT NULL,
     weekOf DATE
 );
 
