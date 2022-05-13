@@ -15,13 +15,16 @@ public class Recipe {
     @GeneratedValue
     private long id;
     Cookbook cookbook;
-    ArrayList<Ingredient> ingredients;
+    //ArrayList<Ingredient> ingredients;
+    @JoinTable(name = "Recipes_Ingredients", joinColumns = {@JoinColumn(name = "recipeId", referencedColumnName = "id")})
     String name;
-    ArrayList<String> intstructions;
+    @OneToMany(mappedBy = "Recipe")
+    ArrayList<Instruction> intstructions;
     Time cookTime;
     Time prepTime;
     Boolean favorite;
     Boolean isPublic;
+    
     String author;
 
     public Recipe(){
