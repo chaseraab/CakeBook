@@ -15,7 +15,7 @@ CREATE TABLE Users (
     pword VARCHAR(50) NOT NULL,
     PRIMARY KEY (id)
 );
-
+/*
 CREATE TABLE Users_Cookbooks(
     FOREIGN KEY (userId) REFERENCES Users(id),
     FOREIGN KEY (cookbookId) REFERENCES Cookbooks(id)
@@ -76,3 +76,4 @@ CREATE TABLE Recipes_Ingredients(
     FOREIGN KEY (recipeId) REFERENCES Recipes(id),
     FOREIGN KEY (ingredientId) REFERENCES Ingredients(id)
 );
+*/

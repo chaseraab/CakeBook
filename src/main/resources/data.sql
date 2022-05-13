@@ -1,6 +1,1 @@
-CREATE TABLE Users (
-    id INT AUTO_INCREMENT,
-    username VARCHAR(50) UNIQUE NOT NULL,
-    pword VARCHAR(50) NOT NULL,
-    PRIMARY KEY (id)
-);
+INSERT INTO Users (username, pword) VALUES ('test123','pword');
