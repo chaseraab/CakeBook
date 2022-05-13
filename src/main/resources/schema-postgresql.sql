@@ -66,7 +66,7 @@ CREATE TABLE Recipes(
     cookTime TIME,
     prepTime TIME,
     favorite BOOLEAN,
-    public, BOOLEAN
+    public BOOLEAN
 );
 
 CREATE TABLE Recipes_Ingredients(
