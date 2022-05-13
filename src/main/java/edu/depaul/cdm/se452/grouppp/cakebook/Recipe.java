@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 
-import org.apache.tools.ant.types.resources.selectors.And;
-
 import lombok.Data;
 
 @Data
