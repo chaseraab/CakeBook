@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS Users_Recipes;
 DROP TABLE IF EXISTS Users_Mealplans;
 DROP TABLE IF EXISTS Cookbooks_Recipes;
 DROP TABLE IF EXISTS Recipes_Ingredients;
+DROP TABLE IF EXISTS Recipes_Instructions;
 
 CREATE TABLE Users (
     id SERIAL PRIMARY KEY,
@@ -66,7 +67,7 @@ CREATE TABLE Recipes(
     cookTime TIME,
     prepTime TIME,
     favorite BOOLEAN,
-    public, BOOLEAN
+    isPublic BOOLEAN
 );
 
 CREATE TABLE Recipes_Ingredients(
@@ -74,6 +75,8 @@ CREATE TABLE Recipes_Ingredients(
     ingredientId INT REFERENCES Ingredients(id)
 );
 
-
-
-
+CREATE TABLE Instructions(
+    id SERIAL PRIMARY KEY,
+    recipeId INT REFERENCES Recipes(id),
+    instruction VARCHAR(50)
+);

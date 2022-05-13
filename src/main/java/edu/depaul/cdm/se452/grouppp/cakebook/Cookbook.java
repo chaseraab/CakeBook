@@ -3,14 +3,13 @@ package edu.depaul.cdm.se452.grouppp.cakebook;
 import java.sql.Timestamp;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import lombok.Data;
 
 @Data
 @Entity
+@Table(name = "Cookbooks")
 public class Cookbook {
     @Id
     @GeneratedValue
