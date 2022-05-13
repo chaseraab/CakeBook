@@ -3,8 +3,7 @@ package edu.depaul.cdm.se452.grouppp.cakebook;
 import java.sql.Time;
 import java.util.ArrayList;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
+import javax.persistence.*;
 
 import lombok.Data;
 
