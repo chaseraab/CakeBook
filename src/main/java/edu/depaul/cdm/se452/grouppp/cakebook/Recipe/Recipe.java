@@ -1,13 +1,16 @@
 package edu.depaul.cdm.se452.grouppp.cakebook.Recipe;
 
+import java.lang.annotation.Repeatable;
 import java.sql.Time;
-import java.util.ArrayList;
-
-import javax.persistence.*;
+import java.util.*;
+import java.util.List;
 
 import edu.depaul.cdm.se452.grouppp.cakebook.Cookbook.Cookbook;
 import edu.depaul.cdm.se452.grouppp.cakebook.Ingredient.Ingredient;
 import edu.depaul.cdm.se452.grouppp.cakebook.Instruction.Instruction;
+
+import javax.persistence.*;
+
 import lombok.Data;
 
 @Data
@@ -17,13 +20,16 @@ public class Recipe {
     @Id
     @GeneratedValue
     private long id;
-    Cookbook cookbook;
-    ArrayList<Ingredient> ingredients;
-    @JoinTable(name = "Recipes_Ingredients", joinColumns = {
-            @JoinColumn(name = "recipeId", referencedColumnName = "id") })
+    //Cookbook cookbook;
+    @ManyToOne
+    @JoinTable(name = "Cookbooks_Recipes", joinColumns = {@JoinColumn(name = "recipeId", referencedColumnName = "id")})
+    private Cookbook cookbook;
+    @OneToMany(mappedBy = "recipe")
+    private List<Ingredient> ingredients;
+    //@JoinTable(name = "Recipes_Ingredients", joinColumns = {@JoinColumn(name = "recipeId", referencedColumnName = "recipeId")})
     String name;
-    @OneToMany(mappedBy = "Recipe")
-    ArrayList<Instruction> intstructions;
+    @OneToMany(mappedBy = "recipe")
+    private List<Instruction> intstructions;
     Time cookTime;
     Time prepTime;
     Boolean favorite;
@@ -31,7 +37,7 @@ public class Recipe {
 
     String author;
 
-    public Recipe() {
+    public Recipe(){
 
     }
 

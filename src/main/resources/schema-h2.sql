@@ -1,96 +1,71 @@
-DROP TABLE IF EXISTS Users;
-DROP TABLE IF EXISTS Cookbooks;
-DROP TABLE IF EXISTS Recipes;
-DROP TABLE IF EXISTS Ingredients;
-DROP TABLE IF EXISTS Mealplans;
+
 DROP TABLE IF EXISTS Users_Cookbooks;
 DROP TABLE IF EXISTS Users_Recipes;
 DROP TABLE IF EXISTS Users_Mealplans;
 DROP TABLE IF EXISTS Cookbooks_Recipes;
 DROP TABLE IF EXISTS Recipes_Ingredients;
-
-CREATE SEQUENCE hibernate_sequence START WITH 1 INCREMENT BY 1;
-
+DROP TABLE IF EXISTS Recipes_Instructions;
+DROP TABLE IF EXISTS Mealplans;
+DROP TABLE IF EXISTS Users;
+DROP TABLE IF EXISTS Cookbooks;
+DROP TABLE IF EXISTS Ingredients;
+DROP TABLE IF EXISTS Instructions;
+DROP TABLE IF EXISTS Recipes;
+create type measurements as enum('cup','tablespoon','teaspoon');
 CREATE TABLE Users (
-    id INT AUTO_INCREMENT,
+    id SERIAL PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
-    pword VARCHAR(50) NOT NULL,
-    PRIMARY KEY (id)
+    pword VARCHAR(50) NOT NULL
 );
-
 CREATE TABLE Cookbooks(
-    id INT AUTO_INCREMENT,
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
     favorite BOOLEAN,
     createdAt DATE NOT NULL,
-    updatedAt DATE,
-    PRIMARY KEY (id)
- );
- 
- CREATE TABLE Users_Cookbooks(
-     userId INT NOT NULL,
-     cookbookId INT NOT NULL,
-     FOREIGN KEY (userId) REFERENCES Users(id),
-     FOREIGN KEY (cookbookId) REFERENCES Cookbooks(id),
-     PRIMARY KEY (userId, cookbookId)
- );
- 
- CREATE TABLE Users_Mealplans(
-     userId INT NOT NULL,
-     mealplanId INT NOT NULL,
-     FOREIGN KEY (userId) REFERNCES Users(id),
-     FOREIGN KEY (meanplanId) REFERENCES Mealplans(id),
-     PRIMARY KEY (userId, mealplanId)
- );
- 
- CREATE TABLE Users_Recipes(
-     userId INT NOT NULL,
-     recipeId INT NOT NULL,
-     FOREIGN KEY (userId) REFERENCES Users(id),
-     FOREIGN KEY (recipeId) REFERENCES Recipes(id),
-     PRIMARY KEY (userId, recipeId)
- );
- 
- CREATE TABLE Cookbooks_Recipes(
-     cookbookId INT NOT NULL,
-     recipeId INT NOT NULL,
-     FOREIGN KEY (cookbookId) REFERENCES Cookbooks(id),
-     FOREIGN KEY (recipeId) REFERENCES Recipes(id),
-     PRIMARY KEY (cookbookId, recipeId)
- );
- 
- CREATE TABLE Mealplans(
-     id INT AUTO_INCREMENT,
-     name VARCHAR(50) UNIQUE NOT NULL,
-     weekOf DATE,
-     PRIMARY KEY (id)
- );
- 
- create type measurements as enum('cup','tablespoon','teaspoon');
- 
- CREATE TABLE Ingredients(
-     id INT AUTO_INCREMENT,
-     name VARCHAR(50) UNIQUE NOT NULL,
-     quantity FLOAT NOT NULL,
-     measurement measurements,
-     PRIMARY KEY (id)
- );
- 
- CREATE TABLE Recipes(
-     id INT AUTO_INCREMENT,
-     name VARCHAR(50) UNIQUE NOT NULL,
-     instructions text[],
-     cookTime TIME,
-     prepTime TIME,
-     favorite BOOLEAN,
-     public, BOOLEAN,
-     PRIMARY KEY (id)
- );
- 
- CREATE TABLE Recipes_Ingredients(
-     recipeId INT NOT NULL,
-     ingredientId INT NOT NULL,
-     FOREIGN KEY (recipeId) REFERENCES Recipes(id),
-     FOREIGN KEY (ingredientId) REFERENCES Ingredients(id),
-     PRIMARY KEY (recipeId, ingredientId)
- );
- 
+    updatedAt DATE
+);
+CREATE TABLE Mealplans(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    weekOf DATE
+);
+CREATE TABLE Ingredients(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50) UNIQUE NOT NULL,
+    quantity FLOAT NOT NULL,
+    measurement measurements 
+);
+CREATE TABLE Recipes(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50) UNIQUE NOT NULL,
+    cookTime TIME,
+    prepTime TIME,
+    favorite BOOLEAN,
+    isPublic BOOLEAN
+);
+CREATE TABLE Instructions(
+    id SERIAL PRIMARY KEY,
+    recipeId INT REFERENCES Recipes(id),
+    instruction VARCHAR(50)
+);
+CREATE TABLE Users_Cookbooks(
+    userId INT REFERENCES Users(id),
+    cookbookId INT REFERENCES Cookbooks(id)
+
+);
+CREATE TABLE Users_Mealplans(
+    userId INT REFERENCES Users(id),
+    mealplanId INT REFERENCES Mealplans(id)
+);
+CREATE TABLE Users_Recipes(
+    userId INT REFERENCES Users(id),
+    recipeId INT REFERENCES Recipes(id)
+);
+CREATE TABLE Cookbooks_Recipes(
+    cookbookId INT REFERENCES Cookbooks(id),
+    recipeId INT REFERENCES Recipes(id)
+);
+CREATE TABLE Recipes_Ingredients(
+    recipeId INT REFERENCES Recipes(id),
+    ingredientId INT REFERENCES Ingredients(id)
+);
