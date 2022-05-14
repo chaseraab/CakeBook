@@ -1,4 +1,4 @@
-package edu.depaul.cdm.se452.grouppp.cakebook;
+package edu.depaul.cdm.se452.grouppp.cakebook.Ingredient;
 
 import lombok.Data;
 import javax.persistence.*;

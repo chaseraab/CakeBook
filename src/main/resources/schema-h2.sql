@@ -9,26 +9,13 @@ DROP TABLE IF EXISTS Users_Mealplans;
 DROP TABLE IF EXISTS Cookbooks_Recipes;
 DROP TABLE IF EXISTS Recipes_Ingredients;
 
+CREATE SEQUENCE hibernate_sequence START WITH 1 INCREMENT BY 1;
+
 CREATE TABLE Users (
     id INT AUTO_INCREMENT,
     username VARCHAR(50) UNIQUE NOT NULL,
     pword VARCHAR(50) NOT NULL,
     PRIMARY KEY (id)
-);
-/*
-CREATE TABLE Users_Cookbooks(
-    FOREIGN KEY (userId) REFERENCES Users(id),
-    FOREIGN KEY (cookbookId) REFERENCES Cookbooks(id)
-);
-
-CREATE TABLE Users_Mealplans(
-    FOREIGN KEY (userId) REFERNCES Users(id),
-    FOREIGN KEY (meanplanId) REFERENCES Mealplans(id)
-);
-
-CREATE TABLE Users_Recipes(
-    FOREIGN KEY (userId) REFERENCES Users(id),
-    FOREIGN KEY (recipeId) REFERENCES Recipes(id)
 );
 
 CREATE TABLE Cookbooks(
@@ -37,43 +24,73 @@ CREATE TABLE Cookbooks(
     createdAt DATE NOT NULL,
     updatedAt DATE,
     PRIMARY KEY (id)
-);
-
-CREATE TABLE Cookbooks_Recipes(
-    FOREIGN KEY (cookbookId) REFERENCES Cookbooks(id),
-    FOREIGN KEY (recipeId) REFERENCES Recipes(id)
-);
-
-CREATE TABLE Mealplans(
-    id INT AUTO_INCREMENT,
-    name VARCHAR(50) UNIQUE NOT NULL,
-    weekOf DATE,
-    PRIMARY KEY (id)
-);
-
-create type measurements as enum('cup','tablespoon','teaspoon');
-
-CREATE TABLE Ingredients(
-    id INT AUTO_INCREMENT,
-    name VARCHAR(50) UNIQUE NOT NULL,
-    quantity FLOAT NOT NULL,
-    measurement measurements,
-    PRIMARY KEY (id)
-);
-
-CREATE TABLE Recipes(
-    id INT AUTO_INCREMENT,
-    name VARCHAR(50) UNIQUE NOT NULL,
-    instructions text[],
-    cookTime TIME,
-    prepTime TIME,
-    favorite BOOLEAN,
-    public, BOOLEAN,
-    PRIMARY KEY (id)
-);
-
-CREATE TABLE Recipes_Ingredients(
-    FOREIGN KEY (recipeId) REFERENCES Recipes(id),
-    FOREIGN KEY (ingredientId) REFERENCES Ingredients(id)
-);
-*/
+ );
+ 
+ CREATE TABLE Users_Cookbooks(
+     userId INT NOT NULL,
+     cookbookId INT NOT NULL,
+     FOREIGN KEY (userId) REFERENCES Users(id),
+     FOREIGN KEY (cookbookId) REFERENCES Cookbooks(id),
+     PRIMARY KEY (userId, cookbookId)
+ );
+ 
+ CREATE TABLE Users_Mealplans(
+     userId INT NOT NULL,
+     mealplanId INT NOT NULL,
+     FOREIGN KEY (userId) REFERNCES Users(id),
+     FOREIGN KEY (meanplanId) REFERENCES Mealplans(id),
+     PRIMARY KEY (userId, mealplanId)
+ );
+ 
+ CREATE TABLE Users_Recipes(
+     userId INT NOT NULL,
+     recipeId INT NOT NULL,
+     FOREIGN KEY (userId) REFERENCES Users(id),
+     FOREIGN KEY (recipeId) REFERENCES Recipes(id),
+     PRIMARY KEY (userId, recipeId)
+ );
+ 
+ CREATE TABLE Cookbooks_Recipes(
+     cookbookId INT NOT NULL,
+     recipeId INT NOT NULL,
+     FOREIGN KEY (cookbookId) REFERENCES Cookbooks(id),
+     FOREIGN KEY (recipeId) REFERENCES Recipes(id),
+     PRIMARY KEY (cookbookId, recipeId)
+ );
+ 
+ CREATE TABLE Mealplans(
+     id INT AUTO_INCREMENT,
+     name VARCHAR(50) UNIQUE NOT NULL,
+     weekOf DATE,
+     PRIMARY KEY (id)
+ );
+ 
+ create type measurements as enum('cup','tablespoon','teaspoon');
+ 
+ CREATE TABLE Ingredients(
+     id INT AUTO_INCREMENT,
+     name VARCHAR(50) UNIQUE NOT NULL,
+     quantity FLOAT NOT NULL,
+     measurement measurements,
+     PRIMARY KEY (id)
+ );
+ 
+ CREATE TABLE Recipes(
+     id INT AUTO_INCREMENT,
+     name VARCHAR(50) UNIQUE NOT NULL,
+     instructions text[],
+     cookTime TIME,
+     prepTime TIME,
+     favorite BOOLEAN,
+     public, BOOLEAN,
+     PRIMARY KEY (id)
+ );
+ 
+ CREATE TABLE Recipes_Ingredients(
+     recipeId INT NOT NULL,
+     ingredientId INT NOT NULL,
+     FOREIGN KEY (recipeId) REFERENCES Recipes(id),
+     FOREIGN KEY (ingredientId) REFERENCES Ingredients(id),
+     PRIMARY KEY (recipeId, ingredientId)
+ );
+ 
