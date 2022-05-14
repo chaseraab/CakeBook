@@ -6,8 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-import edu.depaul.cdm.se452.grouppp.cakebook.Ingredient;
-import edu.depaul.cdm.se452.grouppp.cakebook.Recipe;
+import edu.depaul.cdm.se452.grouppp.cakebook.Ingredient.Ingredient;
+import edu.depaul.cdm.se452.grouppp.cakebook.Recipe.Recipe;
 import lombok.Data;
 
 @Data
