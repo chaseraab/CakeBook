@@ -10,17 +10,25 @@ import edu.depaul.cdm.se452.grouppp.cakebook.Recipe.Recipe;
 @Table(name = "Ingredients")
 public class Ingredient {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    //Recipe
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "recipe_id")
     private Recipe recipe;
 
     String name;
-    Integer quantity;
+    Float quantity;
+    String measurement;
 
     public Ingredient(){
+    }
 
+    public Ingredient(String name, Float quantity, String measurement){
+        this.name = name;
+        this.quantity = quantity;
+        this.measurement = measurement;
     }
 
 }
