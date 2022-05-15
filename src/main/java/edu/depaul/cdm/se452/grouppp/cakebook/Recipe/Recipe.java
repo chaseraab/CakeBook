@@ -18,18 +18,21 @@ import lombok.Data;
 @Table(name = "Recipes")
 public class Recipe {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    //Cookbook cookbook;
+
     @ManyToOne
-    @JoinTable(name = "Cookbooks_Recipes", joinColumns = {@JoinColumn(name = "recipeId", referencedColumnName = "id")})
+    @JoinTable(name = "Cookbooks_Recipes", joinColumns = {@JoinColumn(name = "recipe_id", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "cookbook_id")})
     private Cookbook cookbook;
-    @OneToMany(mappedBy = "recipe")
+
+    //Ingredients
+    @OneToMany(mappedBy="recipe")
     private List<Ingredient> ingredients;
-    //@JoinTable(name = "Recipes_Ingredients", joinColumns = {@JoinColumn(name = "recipeId", referencedColumnName = "recipeId")})
+
     String name;
     @OneToMany(mappedBy = "recipe")
     private List<Instruction> intstructions;
+    @Column(name="cookTime")
     Time cookTime;
     Time prepTime;
     Boolean favorite;
