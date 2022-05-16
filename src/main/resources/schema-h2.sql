@@ -11,7 +11,9 @@ DROP TABLE IF EXISTS Cookbooks;
 DROP TABLE IF EXISTS Ingredients;
 DROP TABLE IF EXISTS Instructions;
 DROP TABLE IF EXISTS Recipes;
+
 create type measurements as enum('cup','tablespoon','teaspoon');
+
 CREATE TABLE Users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
@@ -51,12 +53,21 @@ CREATE TABLE Instructions(
     instruction VARCHAR(50),
     recipe_id bigint REFERENCES Recipes(id)
 );
+<<<<<<< HEAD
+=======
 CREATE TABLE Users_Cookbooks(
     id SERIAL PRIMARY KEY,
     userId INT REFERENCES Users(id),
     cookbookId INT REFERENCES Cookbooks(id)
+>>>>>>> 21c1b1d8bd1417c465c9124d4d3eff945623e761
 
+CREATE TABLE Users_Cookbooks(
+    user_id INT NOT NULL,
+    cookbook_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES Users(id),
+    FOREIGN KEY (cookbook_id) REFERENCES Cookbooks(id)
 );
+/*
 CREATE TABLE Users_Mealplans(
     id SERIAL PRIMARY KEY,
     userId INT REFERENCES Users(id),
@@ -68,7 +79,18 @@ CREATE TABLE Users_Recipes(
     recipeId INT REFERENCES Recipes(id)
 );
 CREATE TABLE Cookbooks_Recipes(
+<<<<<<< HEAD
+    cookbookId INT REFERENCES Cookbooks(id),
+    recipeId INT REFERENCES Recipes(id)
+);
+CREATE TABLE Recipes_Ingredients(
+    recipeId INT REFERENCES Recipes(id),
+    ingredientId INT REFERENCES Ingredients(id)
+);
+*/
+=======
     id SERIAL PRIMARY KEY,
     cookbook_id INT REFERENCES Cookbooks(id),
     recipe_id INT REFERENCES Recipes(id)
 );
+>>>>>>> 21c1b1d8bd1417c465c9124d4d3eff945623e761

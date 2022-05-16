@@ -5,28 +5,32 @@ import java.util.List;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.JoinColumn;
 
 import edu.depaul.cdm.se452.grouppp.cakebook.Cookbook.Cookbook;
 import lombok.Data;
+import lombok.ToString;
 
 @Data
 @Entity
 @Table(name = "Users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String username;
     private String pword;
 
-    // @OneToMany
-    // @ElementCollection(targetClass = Cookbook.class)
-    // private List<Cookbook> cookbook;
+    @OneToMany
+    @JoinTable(name = "Users_Cookbooks", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "cookbook_id", referencedColumnName = "id"))
+    private List<Cookbook> cookbooks;
 
     public User() {
     }
@@ -34,11 +38,11 @@ public class User {
     public User(String username, String pword) {
         this.username = username;
         this.pword = pword;
-        // this.cookbook = new ArrayList<Cookbook>();
+        this.cookbooks = new ArrayList<Cookbook>();
     }
-    /*
-     * public void addCookbook(Cookbook cookbook) {
-     * this.cookbook.add(cookbook);
-     * }
-     */
+
+    public void addCookbook(Cookbook cookbook) {
+        cookbooks.add(cookbook);
+    }
+
 }
