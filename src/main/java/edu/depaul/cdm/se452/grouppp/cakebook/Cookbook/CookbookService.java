@@ -1,6 +1,7 @@
 package edu.depaul.cdm.se452.grouppp.cakebook.Cookbook;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,11 @@ public class CookbookService {
 
     public ResponseEntity<List<Cookbook>> getAllCookbooks() {
         return new ResponseEntity<>(cookbookRepository.findAll(), HttpStatus.OK);
+
+    }
+
+    public ResponseEntity<Optional<List<Cookbook>>> getCookbooks(User user) {
+        return new ResponseEntity<>(cookbookRepository.findAllById(user.getId()), HttpStatus.OK);
 
     }
 

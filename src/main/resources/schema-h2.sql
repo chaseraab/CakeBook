@@ -53,8 +53,8 @@ CREATE TABLE Instructions(
 );
 CREATE TABLE Users_Cookbooks(
     id SERIAL PRIMARY KEY,
-    userId INT REFERENCES Users(id),
-    cookbookId INT REFERENCES Cookbooks(id)
+    user_id INT REFERENCES Users(id),
+    cookbook_id INT REFERENCES Cookbooks(id)
 
 );
 CREATE TABLE Users_Mealplans(
