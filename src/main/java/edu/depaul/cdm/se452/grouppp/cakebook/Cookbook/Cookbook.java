@@ -17,11 +17,10 @@ public class Cookbook {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     private String name;
     private Boolean favorite = false;
-    // private LocalDateTime createdAt;
-    // private Timestamp updatedAt;
+    private Date created_at = new Date();
+    private Date updated_at;
     // private List<Recipe> recipes;
 
     public Cookbook() {
@@ -29,6 +28,5 @@ public class Cookbook {
 
     public Cookbook(String name) {
         this.name = name;
-
     }
 }
