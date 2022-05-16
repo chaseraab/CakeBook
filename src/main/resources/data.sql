@@ -1,1 +1,1 @@
-INSERT INTO Users (username, pword) VALUES ('test123','pword');
+SELECT * FROM Users;

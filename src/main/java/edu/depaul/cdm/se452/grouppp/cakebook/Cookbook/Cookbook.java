@@ -15,16 +15,12 @@ import edu.depaul.cdm.se452.grouppp.cakebook.Recipe.Recipe;
 @Table(name = "Cookbooks")
 public class Cookbook {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToMany
-    @JoinTable(name = "Cookbooks_Recipes", joinColumns = {@JoinColumn(name = "cookbook_id", referencedColumnName = "id")})
-    private List<Recipe> recipes = new ArrayList<Recipe> ();
-
     private String name;
-    private Boolean favorite;
-    private LocalDateTime createdAt;
+    private Boolean favorite = false;
+    // private LocalDateTime createdAt;
     // private Timestamp updatedAt;
     // private List<Recipe> recipes;
 
@@ -33,8 +29,6 @@ public class Cookbook {
 
     public Cookbook(String name) {
         this.name = name;
-        favorite = false;
-        createdAt = LocalDateTime.now();
 
     }
 }
