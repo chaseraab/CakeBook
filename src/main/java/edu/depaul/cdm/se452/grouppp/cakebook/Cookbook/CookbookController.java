@@ -26,6 +26,11 @@ public class CookbookController {
         this.cookbookService = cookbookService;
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<List<Cookbook>> getAllCookbooks() {
+        return cookbookService.getAllCookbooks();
+    }
+
     @GetMapping("/get/{user}")
     public ResponseEntity<Optional<List<Cookbook>>> getCookbooks(@PathVariable User user) {
         return cookbookService.getCookbooks(user);
