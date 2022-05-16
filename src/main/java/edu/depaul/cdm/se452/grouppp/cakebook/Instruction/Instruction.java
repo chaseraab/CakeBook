@@ -10,12 +10,14 @@ import edu.depaul.cdm.se452.grouppp.cakebook.Recipe.Recipe;
 @Table(name = "Instructions")
 public class Instruction {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
-    @JoinColumn(name = "recipeId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "recipe_id")
     Recipe recipe;
     String instruction;
+
+    public Instruction(){}
     
 }

@@ -22,32 +22,44 @@ CREATE TABLE Users (
 CREATE TABLE Cookbooks(
     id SERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
-    favorite BOOLEAN
+    favorite BOOLEAN,
+    created_at DATE NOT NULL,
+    updated_at DATE
 );
 CREATE TABLE Mealplans(
     id SERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     weekOf DATE
 );
+CREATE TABLE Recipes(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50) UNIQUE NOT NULL,
+    cook_time TIME,
+    prep_time TIME,
+    favorite BOOLEAN,
+    is_public BOOLEAN,
+    author VARCHAR(50)
+);
 CREATE TABLE Ingredients(
     id SERIAL PRIMARY KEY,
     name VARCHAR(50) UNIQUE NOT NULL,
     quantity FLOAT NOT NULL,
-    measurement measurements 
-);
-CREATE TABLE Recipes(
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(50) UNIQUE NOT NULL,
-    cookTime TIME,
-    prepTime TIME,
-    favorite BOOLEAN,
-    isPublic BOOLEAN
+    measurement measurements,
+    recipe_id bigint REFERENCES Recipes(id)
 );
 CREATE TABLE Instructions(
     id SERIAL PRIMARY KEY,
     recipeId INT REFERENCES Recipes(id),
-    instruction VARCHAR(50)
+    instruction VARCHAR(50),
+    recipe_id bigint REFERENCES Recipes(id)
 );
+<<<<<<< HEAD
+=======
+CREATE TABLE Users_Cookbooks(
+    id SERIAL PRIMARY KEY,
+    userId INT REFERENCES Users(id),
+    cookbookId INT REFERENCES Cookbooks(id)
+>>>>>>> 21c1b1d8bd1417c465c9124d4d3eff945623e761
 
 CREATE TABLE Users_Cookbooks(
     user_id INT NOT NULL,
@@ -57,14 +69,17 @@ CREATE TABLE Users_Cookbooks(
 );
 /*
 CREATE TABLE Users_Mealplans(
+    id SERIAL PRIMARY KEY,
     userId INT REFERENCES Users(id),
     mealplanId INT REFERENCES Mealplans(id)
 );
 CREATE TABLE Users_Recipes(
+    id SERIAL PRIMARY KEY,
     userId INT REFERENCES Users(id),
     recipeId INT REFERENCES Recipes(id)
 );
 CREATE TABLE Cookbooks_Recipes(
+<<<<<<< HEAD
     cookbookId INT REFERENCES Cookbooks(id),
     recipeId INT REFERENCES Recipes(id)
 );
@@ -73,3 +88,9 @@ CREATE TABLE Recipes_Ingredients(
     ingredientId INT REFERENCES Ingredients(id)
 );
 */
+=======
+    id SERIAL PRIMARY KEY,
+    cookbook_id INT REFERENCES Cookbooks(id),
+    recipe_id INT REFERENCES Recipes(id)
+);
+>>>>>>> 21c1b1d8bd1417c465c9124d4d3eff945623e761
