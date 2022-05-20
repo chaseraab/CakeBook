@@ -27,7 +27,8 @@ CREATE TABLE Cookbooks(
 CREATE TABLE Mealplans(
     id SERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
-    weekOf DATE
+    weekOf DATE,
+    user_id INT REFERENCES Users(id)
 );
 CREATE TABLE Recipes(
     id SERIAL PRIMARY KEY,
@@ -57,11 +58,19 @@ CREATE TABLE Users_Cookbooks(
     cookbook_id INT REFERENCES Cookbooks(id)
 
 );
+CREATE TABLE Mealplan_Recipes(
+    id SERIAL PRIMARY KEY,
+    mealplan_id INT REFERENCES Mealplans(id),
+    recipe_id INT REFERENCES Recipes(id)
+
+);
+/*
 CREATE TABLE Users_Mealplans(
     id SERIAL PRIMARY KEY,
-    userId INT REFERENCES Users(id),
-    mealplanId INT REFERENCES Mealplans(id)
+    user_Id INT REFERENCES Users(id),
+    mealplan_Id INT REFERENCES Mealplans(id)
 );
+*/
 CREATE TABLE Users_Recipes(
     id SERIAL PRIMARY KEY,
     userId INT REFERENCES Users(id),
