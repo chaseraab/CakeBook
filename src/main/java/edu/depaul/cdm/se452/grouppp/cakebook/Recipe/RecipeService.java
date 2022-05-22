@@ -2,6 +2,9 @@ package edu.depaul.cdm.se452.grouppp.cakebook.Recipe;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import edu.depaul.cdm.se452.grouppp.cakebook.Cookbook.*;
+import edu.depaul.cdm.se452.grouppp.cakebook.User.*;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -49,12 +52,13 @@ public class RecipeService {
         }
     }
 
-    public ResponseEntity<String> addRecipe(Recipe recipe) {
+    public ResponseEntity<String> addRecipe(Cookbook cookbook, Recipe recipe) {
         try {
             Optional<Recipe> searchRecipe = recipeRepository.findByName(recipe.getName());
             if (searchRecipe.isPresent()) {
-                return new ResponseEntity<>("An recipe with this name already exists.", HttpStatus.CONFLICT);
+                return new ResponseEntity<>("A recipe with this name already exists.", HttpStatus.CONFLICT);
             }
+            cookbook.addRecipe(recipe);
             recipeRepository.save(recipe);
             return new ResponseEntity<>("Recipe created.", HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
@@ -81,12 +85,16 @@ public class RecipeService {
         }
     }
 
+    /* public ResponseEntity<Optional<List<Recipe>>> getRecipesFromCookbook(Cookbook cookbook) {
+        return new ResponseEntity<>(recipeRepository.findAllById(cookbook.getId()), HttpStatus.OK);
+    } */
+
     public ResponseEntity<Recipe> updateRecipe(long id, Recipe newRecipe) {
         Optional<Recipe> searchRecipe = recipeRepository.findById(id);
         if (searchRecipe.isPresent()) {
             Recipe _recipe = searchRecipe.get();
             _recipe.setName(newRecipe.getName());
-            _recipe.setCookbook(newRecipe.getCookbook());
+            //_recipe.setCookbook(newRecipe.getCookbook());
             _recipe.setIngredients(newRecipe.getIngredients());
             _recipe.setIntstructions(newRecipe.getIntstructions());
             _recipe.setName(newRecipe.getName());

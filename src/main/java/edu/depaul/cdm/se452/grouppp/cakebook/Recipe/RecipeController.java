@@ -1,6 +1,7 @@
 package edu.depaul.cdm.se452.grouppp.cakebook.Recipe;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import edu.depaul.cdm.se452.grouppp.cakebook.Cookbook.Cookbook;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.http.HttpStatus;
 
@@ -42,9 +46,9 @@ public class RecipeController {
         return recipeService.getRecipeById(id);
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<String> addRecipe(@RequestBody Recipe recipe) {
-        return recipeService.addRecipe(recipe);
+    @PostMapping("/new/{cookbook}")
+    public ResponseEntity<String> addRecipe(@PathVariable Cookbook cookbook, @RequestBody Recipe recipe) {
+        return recipeService.addRecipe(cookbook, recipe);
     }
 
     @DeleteMapping("/{id}")
@@ -56,4 +60,10 @@ public class RecipeController {
     public ResponseEntity<Recipe> updateRecipe(@PathVariable("id") long id, @RequestBody Recipe newRecipe) {
         return recipeService.updateRecipe(id, newRecipe);
     }
+
+   /* @GetMapping("/get/{cookbook}")
+    public ResponseEntity<Optional<List<Recipe>>> getRecipes(@PathVariable Cookbook cookbook) {
+        return recipeService.getRecipesFromCookbook(cookbook);
+    } 
+    */
 }

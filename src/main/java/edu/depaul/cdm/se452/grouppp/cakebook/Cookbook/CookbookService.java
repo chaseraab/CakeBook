@@ -1,6 +1,6 @@
 package edu.depaul.cdm.se452.grouppp.cakebook.Cookbook;
 
-import java.util.List;
+import java.util.*;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import edu.depaul.cdm.se452.grouppp.cakebook.User.User;
+import edu.depaul.cdm.se452.grouppp.cakebook.Recipe.*;;
 
 @Service
 public class CookbookService {
@@ -39,6 +40,13 @@ public class CookbookService {
             return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
         }
 
+    }
+
+    public ResponseEntity<List<Recipe>> getCookbookRecipes(Long id){
+        //return new ResponseEntity<>(cookbookRepository.findRecipesById(id), HttpStatus.OK);
+        List<Recipe> recipes = new ArrayList<Recipe>();
+        recipes = cookbookRepository.findById(id).get().getRecipes();
+        return new ResponseEntity<>(recipes, HttpStatus.OK);
     }
 
 }

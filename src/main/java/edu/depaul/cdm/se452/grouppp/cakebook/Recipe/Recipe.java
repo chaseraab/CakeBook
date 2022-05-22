@@ -21,17 +21,17 @@ public class Recipe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
-    @JoinTable(name = "Cookbooks_Recipes", joinColumns = {@JoinColumn(name = "recipe_id", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "cookbook_id")})
-    private Cookbook cookbook;
+    //@ManyToOne
+    //@JoinTable(name = "Cookbooks_Recipes", joinColumns = {@JoinColumn(name = "recipe_id", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "cookbook_id", referencedColumnName = "id")})
+    //private Cookbook cookbook;
 
     //Ingredients
     @OneToMany(mappedBy="recipe")
-    private List<Ingredient> ingredients;
+    private List<Ingredient> ingredients = new ArrayList<Ingredient>();
 
     String name;
     @OneToMany(mappedBy = "recipe")
-    private List<Instruction> intstructions;
+    private List<Instruction> intstructions = new ArrayList<Instruction>();
     @Column(name="cookTime")
     Time cookTime;
     Time prepTime;
@@ -41,7 +41,13 @@ public class Recipe {
     String author;
 
     public Recipe(){
+    }
+    public Recipe(String name){
+        this.name = name;
+    }
 
+    public void addInstruction(Instruction instruction){
+        this.intstructions.add(instruction);
     }
 
 }
