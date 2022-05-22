@@ -13,17 +13,6 @@ public class CakeBookApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CakeBookApplication.class, args);
-
-		User temp = new User("Craab", "supersecret");
-		Cookbook tempbc = new Cookbook("TestCookbook");
-		temp.addCookbook(tempbc);
-		Recipe tempr = new Recipe("Test Recipe");
-		tempbc.addRecipe(tempr);
-		Instruction tempi1 = new Instruction("Beat the egg");
-		Instruction tempi2 = new Instruction("Beat it again!");
-		tempr.addInstruction(tempi1);
-		tempr.addInstruction(tempi2);
-		System.out.println(tempbc.getRecipes());
 		System.out.println("Welcome to CakeBook!");
 	}
 
