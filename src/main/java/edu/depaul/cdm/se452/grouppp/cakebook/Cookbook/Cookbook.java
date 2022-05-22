@@ -21,12 +21,22 @@ public class Cookbook {
     private Boolean favorite = false;
     private Date created_at = new Date();
     private Date updated_at;
-    // private List<Recipe> recipes;
+    @OneToMany
+    @JoinTable(name = "Cookbooks_Recipes", joinColumns = @JoinColumn(name = "cookbook_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "id"))
+    private List<Recipe> recipes = new ArrayList<Recipe>();
 
     public Cookbook() {
     }
 
     public Cookbook(String name) {
         this.name = name;
+    }
+
+    public void addRecipe(Recipe recipe) {
+        this.recipes.add(recipe);
+    }
+
+    public List<Recipe> getRecipes(){
+        return this.recipes;
     }
 }

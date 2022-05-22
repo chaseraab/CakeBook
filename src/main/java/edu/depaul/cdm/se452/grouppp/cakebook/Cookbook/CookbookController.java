@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.depaul.cdm.se452.grouppp.cakebook.User.User;
+import edu.depaul.cdm.se452.grouppp.cakebook.Recipe.*;
 
 @RestController
 @RequestMapping("/api/cookbook")
@@ -35,6 +36,11 @@ public class CookbookController {
     public ResponseEntity<Optional<List<Cookbook>>> getCookbooks(@PathVariable User user) {
         return cookbookService.getCookbooks(user);
 
+    }
+
+    @GetMapping("/recipes/{id}")
+    public ResponseEntity<List<Recipe>> getCookbookRecipes(@PathVariable long id){
+        return cookbookService.getCookbookRecipes(id);
     }
 
     @PostMapping("/new/{user}")

@@ -19,5 +19,8 @@ public class Instruction {
     String instruction;
 
     public Instruction(){}
-    
+    public Instruction(String instruction) {
+        this.instruction = instruction;
+    }   
+
 }
