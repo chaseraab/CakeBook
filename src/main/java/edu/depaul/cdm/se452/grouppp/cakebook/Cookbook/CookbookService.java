@@ -43,10 +43,13 @@ public class CookbookService {
     }
 
     public ResponseEntity<List<Recipe>> getCookbookRecipes(Long id){
-        //return new ResponseEntity<>(cookbookRepository.findRecipesById(id), HttpStatus.OK);
-        List<Recipe> recipes = new ArrayList<Recipe>();
-        recipes = cookbookRepository.findById(id).get().getRecipes();
-        return new ResponseEntity<>(recipes, HttpStatus.OK);
+        if (cookbookRepository.findById(id).isPresent()) {
+            List<Recipe> recipes = new ArrayList<Recipe>();
+            recipes = cookbookRepository.findById(id).get().getRecipes();
+            return new ResponseEntity<>(recipes, HttpStatus.OK);
+        } else {
+            return new ResponseEntity(null, HttpStatus.BAD_GATEWAY);
+        }
     }
 
 }
