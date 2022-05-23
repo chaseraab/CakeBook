@@ -1,11 +1,9 @@
 package edu.depaul.cdm.se452.grouppp.cakebook.Recipe;
 
-import java.lang.annotation.Repeatable;
 import java.sql.Time;
 import java.util.*;
 import java.util.List;
 
-import edu.depaul.cdm.se452.grouppp.cakebook.Cookbook.Cookbook;
 import edu.depaul.cdm.se452.grouppp.cakebook.Ingredient.Ingredient;
 import edu.depaul.cdm.se452.grouppp.cakebook.Instruction.Instruction;
 
@@ -21,20 +19,23 @@ public class Recipe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    //@ManyToOne
-    //@JoinTable(name = "Cookbooks_Recipes", joinColumns = {@JoinColumn(name = "recipe_id", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "cookbook_id", referencedColumnName = "id")})
-    //private Cookbook cookbook;
-
     //Ingredients
     @OneToMany(mappedBy="recipe")
     private List<Ingredient> ingredients = new ArrayList<Ingredient>();
 
     String name;
-    @OneToMany(mappedBy = "recipe")
-    private List<Instruction> intstructions = new ArrayList<Instruction>();
+    //@OneToMany(mappedBy = "recipe")
+    //@OneToMany(targetEntity = Instruction.class)
+    //@JoinColumn(name = "recipe_id")
+    @OneToMany(
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+    )
+    @JoinColumn(name = "recipe_id")
+    private List<Instruction> instructions = new ArrayList<Instruction>();
     @Column(name="cookTime")
-    Time cookTime;
-    Time prepTime;
+    String cookTime;
+    String prepTime;
     Boolean favorite;
     Boolean isPublic;
 
@@ -47,7 +48,11 @@ public class Recipe {
     }
 
     public void addInstruction(Instruction instruction){
-        this.intstructions.add(instruction);
+        this.instructions.add(instruction);
+    }
+
+    public void addIngredient(Ingredient ingredient) {
+        this.ingredients.add(ingredient);
     }
 
 }

@@ -1,5 +1,7 @@
 package edu.depaul.cdm.se452.grouppp.cakebook.Instruction;
 
+import edu.depaul.cdm.se452.grouppp.cakebook.Recipe.*;
+
 import java.util.List;
 
 import org.apache.catalina.connector.Response;
@@ -37,9 +39,9 @@ public class InstructionController {
         return instructionService.getInstructionById(id);
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<String> addInstruction(@RequestBody Instruction instruction) {
-        return instructionService.addInstruction(instruction);
+    @PostMapping("/new/{recipe}")
+    public ResponseEntity<String> addInstruction(@PathVariable("recipe") Recipe recipe, @RequestBody Instruction instruction) {
+        return instructionService.addInstruction(recipe, instruction);
     }
 
     @DeleteMapping("/{id}")

@@ -85,10 +85,6 @@ public class RecipeService {
         }
     }
 
-    /* public ResponseEntity<Optional<List<Recipe>>> getRecipesFromCookbook(Cookbook cookbook) {
-        return new ResponseEntity<>(recipeRepository.findAllById(cookbook.getId()), HttpStatus.OK);
-    } */
-
     public ResponseEntity<Recipe> updateRecipe(long id, Recipe newRecipe) {
         Optional<Recipe> searchRecipe = recipeRepository.findById(id);
         if (searchRecipe.isPresent()) {
@@ -96,7 +92,7 @@ public class RecipeService {
             _recipe.setName(newRecipe.getName());
             //_recipe.setCookbook(newRecipe.getCookbook());
             _recipe.setIngredients(newRecipe.getIngredients());
-            _recipe.setIntstructions(newRecipe.getIntstructions());
+            _recipe.setInstructions(newRecipe.getInstructions());
             _recipe.setName(newRecipe.getName());
             _recipe.setCookTime(newRecipe.getCookTime());
             _recipe.setPrepTime(newRecipe.getPrepTime());

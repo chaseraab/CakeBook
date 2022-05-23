@@ -2,6 +2,8 @@ package edu.depaul.cdm.se452.grouppp.cakebook.Instruction;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import edu.depaul.cdm.se452.grouppp.cakebook.Recipe.*;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -36,12 +38,13 @@ public class InstructionService {
         }
     }
 
-    public ResponseEntity<String> addInstruction(Instruction instruction) {
+    public ResponseEntity<String> addInstruction(Recipe recipe, Instruction instruction) {
         try {
             Optional<Instruction> searchInstruction = instructionRepository.findById(instruction.getId());
             if (searchInstruction.isPresent()) {
                 return new ResponseEntity<>("An instruction with this name already exists.", HttpStatus.CONFLICT);
             }
+            recipe.addInstruction(instruction);
             instructionRepository.save(instruction);
             return new ResponseEntity<>("Instruction created.", HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
@@ -64,7 +67,7 @@ public class InstructionService {
         if (searchInstruction.isPresent()) {
             Instruction _instruction = searchInstruction.get();
             _instruction.setInstruction(newInstruction.getInstruction());
-            _instruction.setRecipe(newInstruction.getRecipe());
+            //_instruction.setRecipe(newInstruction.getRecipe());
             return new ResponseEntity<>(instructionRepository.save(_instruction), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

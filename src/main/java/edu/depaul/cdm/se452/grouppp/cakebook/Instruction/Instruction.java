@@ -13,9 +13,7 @@ public class Instruction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "recipe_id")
-    Recipe recipe;
+    //private Recipe recipe;
     String instruction;
 
     public Instruction(){}
