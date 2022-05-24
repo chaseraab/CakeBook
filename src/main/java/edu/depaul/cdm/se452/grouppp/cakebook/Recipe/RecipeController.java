@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.depaul.cdm.se452.grouppp.cakebook.Cookbook.Cookbook;
+import edu.depaul.cdm.se452.grouppp.cakebook.Instruction.Instruction;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.http.HttpStatus;
@@ -61,9 +62,8 @@ public class RecipeController {
         return recipeService.updateRecipe(id, newRecipe);
     }
 
-   /* @GetMapping("/get/{cookbook}")
-    public ResponseEntity<Optional<List<Recipe>>> getRecipes(@PathVariable Cookbook cookbook) {
-        return recipeService.getRecipesFromCookbook(cookbook);
-    } 
-    */
+    @GetMapping("/instructions/{id}")
+    public ResponseEntity<List<Instruction>> getInstructions(@PathVariable("id") long id) {
+        return recipeService.getRecipeInstructions(id);
+    }
 }
