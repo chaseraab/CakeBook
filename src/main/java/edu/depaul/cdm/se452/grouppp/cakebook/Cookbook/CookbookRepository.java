@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CookbookRepository extends JpaRepository<Cookbook, Long> {
 
-    //@Query(value = "SELECT * FROM Users_Cookbooks JOIN Users ON Users.id = Users_Cookbooks.user_id JOIN Cookbooks ON Cookbooks.id = Users_Cookbooks.cookbook_id WHERE Users.id = ?1", nativeQuery = true)
     @Query(value = "select c.id as \"id\", c.id, c.name, c.favorite, c.created_at, c.updated_at from cookbooks c, users_cookbooks uc where uc.cookbook_id = c.id and uc.user_id = ?1", nativeQuery = true)
     Optional<List<Cookbook>> findAllById(Long id);
     
