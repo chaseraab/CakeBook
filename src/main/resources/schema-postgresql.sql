@@ -32,8 +32,8 @@ CREATE TABLE Mealplans(
 CREATE TABLE Recipes(
     id SERIAL PRIMARY KEY,
     name VARCHAR(50) UNIQUE NOT NULL,
-    cook_time TIME,
-    prep_time TIME,
+    cook_time VARCHAR(50),
+    prep_time VARCHAR(50),
     favorite BOOLEAN,
     is_public BOOLEAN,
     author VARCHAR(50)
@@ -47,14 +47,13 @@ CREATE TABLE Ingredients(
 );
 CREATE TABLE Instructions(
     id SERIAL PRIMARY KEY,
-    recipeId INT REFERENCES Recipes(id),
     instruction VARCHAR(50),
     recipe_id bigint REFERENCES Recipes(id)
 );
 CREATE TABLE Users_Cookbooks(
     id SERIAL PRIMARY KEY,
-    userId INT REFERENCES Users(id),
-    cookbookId INT REFERENCES Cookbooks(id)
+    user_id INT REFERENCES Users(id),
+    cookbook_id INT REFERENCES Cookbooks(id)
 
 );
 CREATE TABLE Users_Mealplans(
@@ -70,5 +69,10 @@ CREATE TABLE Users_Recipes(
 CREATE TABLE Cookbooks_Recipes(
     id SERIAL PRIMARY KEY,
     cookbook_id INT REFERENCES Cookbooks(id),
+    recipe_id INT REFERENCES Recipes(id)
+);
+CREATE TABLE Recipes_Instructions(
+    id SERIAL PRIMARY KEY,
+    instruction_id INT REFERENCES Instructions(id),
     recipe_id INT REFERENCES Recipes(id)
 );
