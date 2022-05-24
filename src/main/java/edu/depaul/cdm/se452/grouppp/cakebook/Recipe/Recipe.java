@@ -19,14 +19,10 @@ public class Recipe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    //Ingredients
     @OneToMany(mappedBy="recipe")
     private List<Ingredient> ingredients = new ArrayList<Ingredient>();
 
     String name;
-    //@OneToMany(mappedBy = "recipe")
-    //@OneToMany(targetEntity = Instruction.class)
-    //@JoinColumn(name = "recipe_id")
     @OneToMany(
         cascade = CascadeType.ALL,
         orphanRemoval = true
