@@ -78,11 +78,14 @@ public class RecipeService {
     }
     
     public ResponseEntity<HttpStatus> deleteRecipeById(long id) {
+        System.out.println("Deleteing id: " + id);
+        recipeRepository.deleteFromCookbooksRecipes(id);
+        recipeRepository.deleteById(id);
         try {
-            recipeRepository.deleteById(id);
+
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.valueOf(e.toString()));
         }
     }
 
