@@ -3,7 +3,6 @@ package edu.depaul.cdm.se452.grouppp.cakebook.Recipe;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import edu.depaul.cdm.se452.grouppp.cakebook.Cookbook.*;
-import edu.depaul.cdm.se452.grouppp.cakebook.User.*;
 import edu.depaul.cdm.se452.grouppp.cakebook.Instruction.*;
 
 import java.util.ArrayList;
@@ -78,11 +77,10 @@ public class RecipeService {
     }
     
     public ResponseEntity<HttpStatus> deleteRecipeById(long id) {
-        System.out.println("Deleteing id: " + id);
-        recipeRepository.deleteFromCookbooksRecipes(id);
-        recipeRepository.deleteById(id);
         try {
-
+            System.out.println("Deleteing id: " + id);
+            recipeRepository.deleteFromCookbooksRecipes(id);
+            recipeRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.valueOf(e.toString()));
