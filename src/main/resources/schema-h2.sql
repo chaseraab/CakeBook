@@ -40,7 +40,7 @@ CREATE TABLE Recipes(
 );
 CREATE TABLE Ingredients(
     id SERIAL PRIMARY KEY,
-    name VARCHAR(50) UNIQUE NOT NULL,
+    name VARCHAR(50) NOT NULL,
     quantity FLOAT NOT NULL,
     measurement measurements,
     recipe_id bigint REFERENCES Recipes(id)
