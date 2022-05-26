@@ -14,10 +14,6 @@ public class Ingredient {
     private long id;
 
     //Recipe
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "recipe_id")
-    private Recipe recipe;
-
     String name;
     Float quantity;
     String measurement;

@@ -1,9 +1,7 @@
 package edu.depaul.cdm.se452.grouppp.cakebook.Recipe;
 
 import java.util.List;
-import java.util.Optional;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,14 +10,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.depaul.cdm.se452.grouppp.cakebook.Cookbook.Cookbook;
+import edu.depaul.cdm.se452.grouppp.cakebook.Ingredient.Ingredient;
 import edu.depaul.cdm.se452.grouppp.cakebook.Instruction.Instruction;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.http.HttpStatus;
+
+import org.json.simple.JSONObject;
+
+import com.google.gson.Gson;
 
 @RestController
 @RequestMapping("/api/recipes")
@@ -48,7 +50,8 @@ public class RecipeController {
     }
 
     @PostMapping("/new/{cookbook}")
-    public ResponseEntity<String> addRecipe(@PathVariable Cookbook cookbook, @RequestBody Recipe recipe) {
+    public ResponseEntity<String> addRecipe(@PathVariable Cookbook cookbook, @RequestBody JSONObject values) {
+        Recipe recipe = new Gson().fromJson(values.toJSONString(), Recipe.class);
         return recipeService.addRecipe(cookbook, recipe);
     }
 
@@ -65,5 +68,10 @@ public class RecipeController {
     @GetMapping("/instructions/{id}")
     public ResponseEntity<List<Instruction>> getInstructions(@PathVariable("id") long id) {
         return recipeService.getRecipeInstructions(id);
+    }
+
+    @GetMapping("/ingredients/{id}")
+    public ResponseEntity<List<Ingredient>> getIngredients(@PathVariable("id") long id) {
+        return recipeService.getRecipeIngredients(id);
     }
 }

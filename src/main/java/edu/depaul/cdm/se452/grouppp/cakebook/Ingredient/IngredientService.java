@@ -5,10 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import edu.depaul.cdm.se452.grouppp.cakebook.Recipe.Recipe;
 
 @Service
 public class IngredientService {
@@ -23,9 +24,9 @@ public class IngredientService {
         return new ResponseEntity<>(ingredientRepository.findAll(), HttpStatus.OK);
     }
 
-    public ResponseEntity<Ingredient> getIngredientByName(String name) {
+    public ResponseEntity<List<Ingredient>> getIngredientByName(String name) {
         try {
-            Optional<Ingredient> ingredientData = ingredientRepository.findByName(name);
+            Optional<List<Ingredient>> ingredientData = ingredientRepository.findByName(name);
             if (ingredientData.isPresent()) {
                 return new ResponseEntity<>(ingredientData.get(), HttpStatus.OK);
             } else {
@@ -49,12 +50,9 @@ public class IngredientService {
         }
     }
 
-    public ResponseEntity<String> addIngredient(Ingredient ingredient) {
+    public ResponseEntity<String> addIngredient(Recipe recipe, Ingredient ingredient) {
         try {
-            Optional<Ingredient> searchIngredient = ingredientRepository.findByName(ingredient.getName());
-            if (searchIngredient.isPresent()) {
-                return new ResponseEntity<>("An ingredient with this name already exists.", HttpStatus.CONFLICT);
-            }
+            recipe.addIngredient(ingredient);
             ingredientRepository.save(ingredient);
             return new ResponseEntity<>("Ingredient created.", HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
@@ -62,16 +60,7 @@ public class IngredientService {
         }
     }
 
-    public ResponseEntity<HttpStatus> deleteIngredientByName(String name) {
-        try {
-            Ingredient searchIngredient = ingredientRepository.findByName(name).get();
-            ingredientRepository.deleteById(searchIngredient.getId());
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-    
+  
     public ResponseEntity<HttpStatus> deleteIngredientById(long id) {
         try {
             ingredientRepository.deleteById(id);
@@ -87,7 +76,7 @@ public class IngredientService {
             Ingredient _ingredient = searchIngredient.get();
             _ingredient.setName(newIngredient.getName());
             _ingredient.setQuantity(newIngredient.getQuantity());
-            _ingredient.setRecipe(newIngredient.getRecipe());
+            //_ingredient.setRecipe(newIngredient.getRecipe());
             return new ResponseEntity<>(ingredientRepository.save(_ingredient), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

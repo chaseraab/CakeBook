@@ -1,6 +1,5 @@
 package edu.depaul.cdm.se452.grouppp.cakebook.Recipe;
 
-import java.sql.Time;
 import java.util.*;
 import java.util.List;
 
@@ -11,18 +10,26 @@ import javax.persistence.*;
 
 import lombok.Data;
 
+
+
 @Data
 @Entity
 @Table(name = "Recipes")
 public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private long id;
-
-    @OneToMany(mappedBy="recipe")
-    private List<Ingredient> ingredients = new ArrayList<Ingredient>();
-
     String name;
+
+    @OneToMany(
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+    )
+    @JoinColumn(name = "recipe_id")
+    private List<Ingredient> ingredients = new ArrayList<Ingredient>();
+    
+    
     @OneToMany(
         cascade = CascadeType.ALL,
         orphanRemoval = true
@@ -34,7 +41,6 @@ public class Recipe {
     String prepTime;
     Boolean favorite;
     Boolean isPublic;
-
     String author;
 
     public Recipe(){
