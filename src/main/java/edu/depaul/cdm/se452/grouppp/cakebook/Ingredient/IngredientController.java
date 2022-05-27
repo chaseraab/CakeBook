@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import edu.depaul.cdm.se452.grouppp.cakebook.Recipe.Recipe;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.http.HttpStatus;
 
@@ -33,7 +36,7 @@ public class IngredientController {
     }
 
     @GetMapping(path="/name/{name}")
-    public ResponseEntity<Ingredient> getIngredientByName(@PathVariable("name") String name) {
+    public ResponseEntity<List<Ingredient>> getIngredientByName(@PathVariable("name") String name) {
         return ingredientService.getIngredientByName(name);
     }
 
@@ -42,9 +45,9 @@ public class IngredientController {
         return ingredientService.getIngredientById(id);
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<String> addIngredient(@RequestBody Ingredient ingredient) {
-        return ingredientService.addIngredient(ingredient);
+    @PostMapping("/new/{recipe}")
+    public ResponseEntity<String> addIngredient(@PathVariable("recipe") Recipe recipe, @RequestBody Ingredient ingredient) {
+        return ingredientService.addIngredient(recipe, ingredient);
     }
 
     @DeleteMapping("/{id}")

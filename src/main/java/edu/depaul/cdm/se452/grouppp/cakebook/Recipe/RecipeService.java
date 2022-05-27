@@ -3,6 +3,7 @@ package edu.depaul.cdm.se452.grouppp.cakebook.Recipe;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import edu.depaul.cdm.se452.grouppp.cakebook.Cookbook.*;
+import edu.depaul.cdm.se452.grouppp.cakebook.Ingredient.Ingredient;
 import edu.depaul.cdm.se452.grouppp.cakebook.Instruction.*;
 
 import java.util.ArrayList;
@@ -92,6 +93,16 @@ public class RecipeService {
             List<Instruction> instructions = new ArrayList<Instruction>();
             instructions = recipeRepository.findById(id).get().getInstructions();
             return new ResponseEntity<>(instructions, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    public ResponseEntity<List<Ingredient>> getRecipeIngredients(Long id) {
+        if (recipeRepository.findById(id).isPresent()) {
+            List<Ingredient> ingredients = new ArrayList<Ingredient>();
+            ingredients = recipeRepository.findById(id).get().getIngredients();
+            return new ResponseEntity<>(ingredients, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
