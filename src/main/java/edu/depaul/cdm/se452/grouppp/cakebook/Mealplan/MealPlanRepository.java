@@ -1,5 +1,7 @@
 package edu.depaul.cdm.se452.grouppp.cakebook.Mealplan;
 
-public class MealPlanRepository {
-    
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface MealplanRepository extends JpaRepository<Mealplan, Long> {
+
 }
