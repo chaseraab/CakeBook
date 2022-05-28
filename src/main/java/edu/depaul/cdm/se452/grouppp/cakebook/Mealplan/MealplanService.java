@@ -13,9 +13,9 @@ import edu.depaul.cdm.se452.grouppp.cakebook.User.User;
 @Service
 public class MealplanService {
     @Autowired
-    private final MealplanRepository mealplanRepository;
+    private final MealPlanRepository mealplanRepository;
 
-    public MealplanService(MealplanRepository mealplanRepository) {
+    public MealplanService(MealPlanRepository mealplanRepository) {
         this.mealplanRepository = mealplanRepository;
     }
 

@@ -5,7 +5,8 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface MealplanRepository extends JpaRepository<Mealplan, Long> {
+public interface MealPlanRepository extends JpaRepository<Mealplan, Long> {
     Optional<List<Mealplan>> findByUserId(long user_id);
+    
 
 }
