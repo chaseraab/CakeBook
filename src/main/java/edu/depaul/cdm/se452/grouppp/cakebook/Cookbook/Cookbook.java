@@ -36,7 +36,7 @@ public class Cookbook {
         this.recipes.add(recipe);
     }
 
-    public List<Recipe> getRecipes(){
+    public List<Recipe> getRecipes() {
         return this.recipes;
     }
 }
