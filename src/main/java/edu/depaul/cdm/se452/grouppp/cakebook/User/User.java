@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.JoinColumn;
 
 import edu.depaul.cdm.se452.grouppp.cakebook.Cookbook.Cookbook;
+import edu.depaul.cdm.se452.grouppp.cakebook.Mealplan.Mealplan;
 import lombok.Data;
 import lombok.ToString;
 
@@ -33,6 +34,12 @@ public class User {
     @JoinTable(name = "Users_Cookbooks", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "cookbook_id", referencedColumnName = "id"))
     private List<Cookbook> cookbooks;
 
+    @OneToMany(mappedBy = "user")
+    // @JoinTable(name = "Users_Mealplans", joinColumns = @JoinColumn(name =
+    // "user_id", referencedColumnName = "id"), inverseJoinColumns =
+    // @JoinColumn(name = "mealplan_id", referencedColumnName = "id"))
+    private List<Mealplan> mealplans;
+
     public User() {
     }
 
@@ -44,6 +51,10 @@ public class User {
 
     public void addCookbook(Cookbook cookbook) {
         cookbooks.add(cookbook);
+    }
+
+    public void addMealplan(Mealplan mealplan) {
+        mealplans.add(mealplan);
     }
 
 }

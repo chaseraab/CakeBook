@@ -5,12 +5,14 @@ import java.util.List;
 
 import edu.depaul.cdm.se452.grouppp.cakebook.Ingredient.Ingredient;
 import edu.depaul.cdm.se452.grouppp.cakebook.Instruction.Instruction;
+import edu.depaul.cdm.se452.grouppp.cakebook.Mealplan.Mealplan;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
-
-
 
 @Data
 @Entity
@@ -22,34 +24,28 @@ public class Recipe {
     private long id;
     String name;
 
-    @OneToMany(
-        cascade = CascadeType.ALL,
-        orphanRemoval = true
-    )
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "recipe_id")
     private List<Ingredient> ingredients = new ArrayList<Ingredient>();
-    
-    
-    @OneToMany(
-        cascade = CascadeType.ALL,
-        orphanRemoval = true
-    )
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "recipe_id")
     private List<Instruction> instructions = new ArrayList<Instruction>();
-    @Column(name="cookTime")
+    @Column(name = "cookTime")
     String cookTime;
     String prepTime;
     Boolean favorite;
     Boolean isPublic;
     String author;
 
-    public Recipe(){
+    public Recipe() {
     }
-    public Recipe(String name){
+
+    public Recipe(String name) {
         this.name = name;
     }
 
-    public void addInstruction(Instruction instruction){
+    public void addInstruction(Instruction instruction) {
         this.instructions.add(instruction);
     }
 
