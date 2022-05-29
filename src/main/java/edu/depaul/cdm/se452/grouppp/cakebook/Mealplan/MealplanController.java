@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.depaul.cdm.se452.grouppp.cakebook.Recipe.Recipe;
 import edu.depaul.cdm.se452.grouppp.cakebook.User.User;
 
 @RestController
@@ -44,4 +45,8 @@ public class MealplanController {
 
     }
 
+    @PostMapping("/recipe/{recipe}")
+    public ResponseEntity<String> addRecipeToMealplan(@PathVariable Recipe recipe, @RequestBody Mealplan mealplan) {
+        return mealplanService.addRecipeToMealplan(recipe, mealplan);
+    }
 }

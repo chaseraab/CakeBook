@@ -34,9 +34,10 @@ public class User {
     @JoinTable(name = "Users_Cookbooks", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "cookbook_id", referencedColumnName = "id"))
     private List<Cookbook> cookbooks;
 
-    @OneToMany(mappedBy = "user")
-    // @JoinTable(name = "Users_Mealplans", joinColumns = @JoinColumn(name =
-    // "user_id", referencedColumnName = "id"), inverseJoinColumns =
+    // @OneToMany(mappedBy = "user)
+    @OneToMany
+    // @JoinColumn(name = "user_id")
+    @JoinTable(name = "Users_Mealplans", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "mealplan_id", referencedColumnName = "id"))
     // @JoinColumn(name = "mealplan_id", referencedColumnName = "id"))
     private List<Mealplan> mealplans;
 
