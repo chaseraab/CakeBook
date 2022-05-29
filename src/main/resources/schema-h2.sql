@@ -27,8 +27,7 @@ CREATE TABLE Cookbooks(
 CREATE TABLE Mealplans(
     id SERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
-    weekOf DATE,
-    user_id INT REFERENCES Users(id)
+    weekOf DATE
 );
 CREATE TABLE Recipes(
     id SERIAL PRIMARY KEY,
@@ -37,7 +36,8 @@ CREATE TABLE Recipes(
     prep_time VARCHAR(50),
     favorite BOOLEAN,
     is_public BOOLEAN,
-    author VARCHAR(50)
+    author VARCHAR(50),
+    mealplan_id bigint REFERENCES Mealplans(id)
 );
 CREATE TABLE Ingredients(
     id SERIAL PRIMARY KEY,
@@ -57,13 +57,13 @@ CREATE TABLE Users_Cookbooks(
     cookbook_id INT REFERENCES Cookbooks(id)
 
 );
-/*
+
 CREATE TABLE Users_Mealplans(
     id SERIAL PRIMARY KEY,
-    userId INT REFERENCES Users(id),
-    mealplanId INT REFERENCES Mealplans(id)
+    user_id INT REFERENCES Users(id),
+    mealplan_id INT REFERENCES Mealplans(id)
 );
-*/
+
 CREATE TABLE Users_Recipes(
     id SERIAL PRIMARY KEY,
     userId INT REFERENCES Users(id),
@@ -79,3 +79,10 @@ CREATE TABLE Recipes_Instructions(
     instruction_id INT REFERENCES Instructions(id),
     recipe_id INT REFERENCES Recipes(id)
 );
+/*
+CREATE TABLE Mealplans_Recipes(
+    id SERIAL PRIMARY KEY,
+    mealplan_id INT REFERENCES Mealplans(id),
+    recipe_id INT REFERENCES Recipes(id)
+);
+*/

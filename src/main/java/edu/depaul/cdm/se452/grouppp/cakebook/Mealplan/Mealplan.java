@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -35,28 +36,33 @@ public class Mealplan {
 
     private Date weekof = new Date();
 
-    @OneToMany
-    private List<Recipe> recipes;
+    // @OneToMany
+    // @JoinTable(name = "Mealplans_Recipes", joinColumns = @JoinColumn(name =
+    // "mealplan_id", referencedColumnName = "id"), inverseJoinColumns =
+    // @JoinColumn(name = "recipe_id", referencedColumnName = "id"))
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "mealplan_id")
+    private List<Recipe> recipes = new ArrayList<Recipe>();;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
-    @ElementCollection(targetClass = Ingredient.class)
-    private List<Ingredient> need;
-    @ElementCollection(targetClass = Ingredient.class)
-    private List<Ingredient> have;
+    // @ElementCollection(targetClass = Ingredient.class)
+    // private List<Ingredient> need;
+    // @ElementCollection(targetClass = Ingredient.class)
+    // private List<Ingredient> have;
 
     public Mealplan() {
 
     }
 
-    public Mealplan(String name, User user) {
+    public Mealplan(String name) {
         this.name = name;
-        this.user = user;
-        recipes = new ArrayList<Recipe>();
-        need = new ArrayList<Ingredient>();
-        have = new ArrayList<Ingredient>();
+        // this.user = user;
+        // recipes = new ArrayList<Recipe>();
+        // need = new ArrayList<Ingredient>();
+        // have = new ArrayList<Ingredient>();
+    }
+
+    public void addRecipe(Recipe recipe) {
+        recipes.add(recipe);
     }
 
 }
