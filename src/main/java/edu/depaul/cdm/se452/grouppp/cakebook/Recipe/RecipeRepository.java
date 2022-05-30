@@ -20,5 +20,28 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long>{
     @Query(value = "delete from cookbooks_recipes where recipe_id = :id", nativeQuery = true)
     void deleteFromCookbooksRecipes(@Param("id") Long id);
 
+    @Modifying
+    @Transactional
+    @Query(value = "delete from instructions where recipe_id = :id", nativeQuery = true)
+    void deleteInstructionsFromRecipe(@Param("id") Long id);
 
+    @Modifying
+    @Transactional
+    @Query(value = "update instructions set recipe_id = :recipe_id where recipe_id = :id", nativeQuery = true)
+    void updateInstructionOwner(@Param("recipe_id") Long recipe_id, @Param("id") Long id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "delete from ingredients where recipe_id = :id", nativeQuery = true)
+    void deleteIngredientsFromRecipe(@Param("id") Long id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "update ingredients set recipe_id = :recipe_id where recipe_id = :id", nativeQuery = true)
+    void updateIngredientOwner(@Param("recipe_id") Long recipe_id, @Param("id") Long id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "update recipes set id = :recipe_id where id = :id", nativeQuery = true)
+    void updateId(@Param("recipe_id") Long recipe_id, @Param("id") Long id);
 }
