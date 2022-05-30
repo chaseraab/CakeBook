@@ -59,12 +59,17 @@ public class RecipeController {
     public ResponseEntity<HttpStatus> deleteRecipeById(@PathVariable("id") long id){
         return recipeService.deleteRecipeById(id);
     }
-
+    /*
     @PutMapping("/{id}")
     public ResponseEntity<Recipe> updateRecipe(@PathVariable("id") long id, @RequestBody Recipe newRecipe) {
         return recipeService.updateRecipe(id, newRecipe);
     }
-
+    */
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateRecipe(@PathVariable Long id, @RequestBody JSONObject values) {
+        Recipe recipe = new Gson().fromJson(values.toJSONString(), Recipe.class);
+        return recipeService.updateRecipe(id, recipe);
+    }
     @GetMapping("/instructions/{id}")
     public ResponseEntity<List<Instruction>> getInstructions(@PathVariable("id") long id) {
         return recipeService.getRecipeInstructions(id);

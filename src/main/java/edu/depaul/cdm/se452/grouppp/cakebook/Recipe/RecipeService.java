@@ -14,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import edu.depaul.cdm.se452.grouppp.cakebook.Instruction.*;
+
 @Service
 public class RecipeService {
     @Autowired
@@ -79,7 +81,6 @@ public class RecipeService {
     
     public ResponseEntity<HttpStatus> deleteRecipeById(long id) {
         try {
-            System.out.println("Deleteing id: " + id);
             recipeRepository.deleteFromCookbooksRecipes(id);
             recipeRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -108,6 +109,34 @@ public class RecipeService {
         }
     }
 
+    public ResponseEntity<String> updateRecipe(Long id, Recipe newRecipe) {
+        try {
+            Recipe oldRecipe = recipeRepository.findById(id).get();
+            oldRecipe.setName(newRecipe.name);
+            //oldRecipe.setIngredients(newRecipe.getIngredients());
+            //oldRecipe.setInstructions(newRecipe.getInstructions());
+            oldRecipe.setCookTime(newRecipe.getCookTime());
+            oldRecipe.setPrepTime(newRecipe.prepTime);
+            oldRecipe.setFavorite(newRecipe.favorite);
+            oldRecipe.setIsPublic(newRecipe.isPublic);
+            oldRecipe.setAuthor(newRecipe.author);
+            recipeRepository.deleteInstructionsFromRecipe(oldRecipe.getId());
+            for (Instruction i : newRecipe.getInstructions()) {
+                oldRecipe.addInstruction(i);
+                //recipeRepository.updateInstructionOwner(id, i.getId());
+            }
+            recipeRepository.deleteIngredientsFromRecipe(oldRecipe.getId());
+            for (Ingredient i: newRecipe.getIngredients()) {
+                //recipeRepository.updateIngredientOwner(id, i.getId());
+                oldRecipe.addIngredient(i);
+            }
+            recipeRepository.save(oldRecipe);
+            return new ResponseEntity<>("Recipe successfully updated", HttpStatus.ACCEPTED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.toString(), HttpStatus.NOT_FOUND);
+        }
+    }
+/*
     public ResponseEntity<Recipe> updateRecipe(long id, Recipe newRecipe) {
         Optional<Recipe> searchRecipe = recipeRepository.findById(id);
         if (searchRecipe.isPresent()) {
@@ -126,5 +155,6 @@ public class RecipeService {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+    */
 
 }
