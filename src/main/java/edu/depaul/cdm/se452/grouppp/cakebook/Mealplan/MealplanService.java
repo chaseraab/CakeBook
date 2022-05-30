@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import edu.depaul.cdm.se452.grouppp.cakebook.Recipe.Recipe;
 import edu.depaul.cdm.se452.grouppp.cakebook.User.User;
+import edu.depaul.cdm.se452.grouppp.cakebook.User.UserRepository;
 
 @Service
 public class MealplanService {
@@ -49,7 +50,17 @@ public class MealplanService {
             mealplanRepository.save(temp);
             return new ResponseEntity<>("Recipe added to mealplan.", HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Mealplan does not exist.", HttpStatus.OK);
+            return new ResponseEntity<>("Mealplan does not exist.", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    public ResponseEntity<String> deleteMealplan(Mealplan mealplan, User user) {
+        try {
+            user.deleteMealplan(mealplan);
+            mealplanRepository.delete(mealplan);
+            return new ResponseEntity<>("Mealplan deleted.", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 

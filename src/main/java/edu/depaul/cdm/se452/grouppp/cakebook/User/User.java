@@ -54,8 +54,16 @@ public class User {
         cookbooks.add(cookbook);
     }
 
+    public void deleteCookbook(Cookbook cookbook) {
+        cookbooks.remove(cookbook);
+    }
+
     public void addMealplan(Mealplan mealplan) {
         mealplans.add(mealplan);
+    }
+
+    public void deleteMealplan(Mealplan mealplan) {
+        mealplans.remove(mealplan);
     }
 
 }

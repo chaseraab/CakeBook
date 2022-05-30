@@ -39,13 +39,18 @@ public class CookbookController {
     }
 
     @GetMapping("/recipes/{id}")
-    public ResponseEntity<List<Recipe>> getCookbookRecipes(@PathVariable long id){
+    public ResponseEntity<List<Recipe>> getCookbookRecipes(@PathVariable long id) {
         return cookbookService.getCookbookRecipes(id);
     }
 
     @PostMapping("/new/{user}")
     public ResponseEntity<String> addCookbook(@PathVariable User user, @RequestBody Cookbook cookbook) {
         return cookbookService.addCookbook(user, cookbook);
+    }
+
+    @DeleteMapping("/delete/{cookbook}/{user}")
+    public ResponseEntity<String> deleteCookbook(@PathVariable Cookbook cookbook, @PathVariable User user) {
+        return cookbookService.deleteCookbook(cookbook, user);
     }
 
 }
