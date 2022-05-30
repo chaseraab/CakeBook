@@ -36,7 +36,8 @@ CREATE TABLE Recipes(
     prep_time VARCHAR(50),
     favorite BOOLEAN,
     is_public BOOLEAN,
-    author VARCHAR(50)
+    author VARCHAR(50),
+    mealplan_id bigint REFERENCES Mealplans(id)
 );
 CREATE TABLE Ingredients(
     id SERIAL PRIMARY KEY,
@@ -58,8 +59,8 @@ CREATE TABLE Users_Cookbooks(
 );
 CREATE TABLE Users_Mealplans(
     id SERIAL PRIMARY KEY,
-    userId INT REFERENCES Users(id),
-    mealplanId INT REFERENCES Mealplans(id)
+    user_id INT REFERENCES Users(id),
+    mealplan_id INT REFERENCES Mealplans(id)
 );
 CREATE TABLE Users_Recipes(
     id SERIAL PRIMARY KEY,

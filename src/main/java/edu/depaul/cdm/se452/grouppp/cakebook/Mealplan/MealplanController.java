@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,15 +39,21 @@ public class MealplanController {
     }
 
     // return user's mealplans
-
     @GetMapping("/get/{user}")
     public ResponseEntity<Optional<List<Mealplan>>> getMealplans(@PathVariable User user) {
         return mealplanService.getMealplans(user);
 
     }
 
+    // add recipe to mealplan
     @PostMapping("/recipe/{recipe}")
     public ResponseEntity<String> addRecipeToMealplan(@PathVariable Recipe recipe, @RequestBody Mealplan mealplan) {
         return mealplanService.addRecipeToMealplan(recipe, mealplan);
     }
+
+    @DeleteMapping("/delete/{mealplan}/{user}")
+    public ResponseEntity<String> deleteMealplan(@PathVariable Mealplan mealplan, @PathVariable User user) {
+        return mealplanService.deleteMealplan(mealplan, user);
+    }
+
 }

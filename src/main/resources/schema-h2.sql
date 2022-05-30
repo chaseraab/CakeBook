@@ -79,10 +79,3 @@ CREATE TABLE Recipes_Instructions(
     instruction_id INT REFERENCES Instructions(id),
     recipe_id INT REFERENCES Recipes(id)
 );
-/*
-CREATE TABLE Mealplans_Recipes(
-    id SERIAL PRIMARY KEY,
-    mealplan_id INT REFERENCES Mealplans(id),
-    recipe_id INT REFERENCES Recipes(id)
-);
-*/

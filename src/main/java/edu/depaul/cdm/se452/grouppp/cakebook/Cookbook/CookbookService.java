@@ -1,4 +1,4 @@
- package edu.depaul.cdm.se452.grouppp.cakebook.Cookbook;
+package edu.depaul.cdm.se452.grouppp.cakebook.Cookbook;
 
 import java.util.*;
 import java.util.Optional;
@@ -42,13 +42,24 @@ public class CookbookService {
 
     }
 
-    public ResponseEntity<List<Recipe>> getCookbookRecipes(Long id){
+    public ResponseEntity<List<Recipe>> getCookbookRecipes(Long id) {
         if (cookbookRepository.findById(id).isPresent()) {
             List<Recipe> recipes = new ArrayList<Recipe>();
             recipes = cookbookRepository.findById(id).get().getRecipes();
             return new ResponseEntity<>(recipes, HttpStatus.OK);
         } else {
             return new ResponseEntity(null, HttpStatus.BAD_GATEWAY);
+        }
+    }
+
+    public ResponseEntity<String> deleteCookbook(Cookbook cookbook, User user) {
+        try {
+            cookbookRepository.deleteFromUsersCookbooks(cookbook.getId());
+            cookbookRepository.delete(cookbook);
+            user.deleteCookbook(cookbook);
+            return new ResponseEntity<>("Cookbook deleted.", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
