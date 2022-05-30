@@ -40,7 +40,7 @@ public class Mealplan {
     // @JoinTable(name = "Mealplans_Recipes", joinColumns = @JoinColumn(name =
     // "mealplan_id", referencedColumnName = "id"), inverseJoinColumns =
     // @JoinColumn(name = "recipe_id", referencedColumnName = "id"))
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "mealplan_id")
     private List<Recipe> recipes = new ArrayList<Recipe>();;
 
@@ -63,6 +63,10 @@ public class Mealplan {
 
     public void addRecipe(Recipe recipe) {
         recipes.add(recipe);
+    }
+
+    public void deleteRecipe(Recipe recipe) {
+        recipes.remove(recipe);
     }
 
 }
