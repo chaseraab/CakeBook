@@ -51,9 +51,15 @@ public class MealplanController {
         return mealplanService.addRecipeToMealplan(recipe, mealplan);
     }
 
-    @DeleteMapping("/delete/{mealplan}/{user}")
+    @DeleteMapping("/delete/mealplan/{mealplan}/user/{user}")
     public ResponseEntity<String> deleteMealplan(@PathVariable Mealplan mealplan, @PathVariable User user) {
         return mealplanService.deleteMealplan(mealplan, user);
     }
 
+    // remove recipe from mealplan
+    @DeleteMapping("/delete/mealplan/{mealplan}/recipe/{recipe}")
+    public ResponseEntity<String> deleteRecipeFromMealplan(@PathVariable Mealplan mealplan,
+            @PathVariable Recipe recipe) {
+        return mealplanService.deleteRecipeFromMealplan(mealplan, recipe);
+    }
 }

@@ -1,8 +1,10 @@
 package edu.depaul.cdm.se452.grouppp.cakebook.Mealplan;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,12 +58,25 @@ public class MealplanService {
 
     public ResponseEntity<String> deleteMealplan(Mealplan mealplan, User user) {
         try {
+            List<Recipe> recipes = new ArrayList<Recipe>();
+            mealplan.setRecipes(recipes);
             user.deleteMealplan(mealplan);
             mealplanRepository.delete(mealplan);
             return new ResponseEntity<>("Mealplan deleted.", HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Mealplan could not be deleted.", HttpStatus.NOT_FOUND);
         }
+    }
+
+    public ResponseEntity<String> deleteRecipeFromMealplan(Mealplan mealplan, Recipe recipe) {
+        try {
+            mealplan.deleteRecipe(recipe);
+            mealplanRepository.save(mealplan);
+            return new ResponseEntity<>("Recipe removed from mealplan.", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Recipe could not be deleted.", HttpStatus.OK);
+        }
+
     }
 
 }
