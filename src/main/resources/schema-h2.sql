@@ -32,8 +32,8 @@ CREATE TABLE Mealplans(
 CREATE TABLE Recipes(
     id SERIAL PRIMARY KEY,
     name VARCHAR(50) UNIQUE NOT NULL,
-    cook_time VARCHAR(50),
-    prep_time VARCHAR(50),
+    cook_time int,
+    prep_time int,
     favorite BOOLEAN,
     is_public BOOLEAN,
     author VARCHAR(50),

@@ -1,6 +1,7 @@
 package edu.depaul.cdm.se452.grouppp.cakebook.Recipe;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +40,17 @@ public class RecipeController {
         return recipeService.getAllRecipes();
     }
 
+    @GetMapping("/all/{searchString}")
+    public ResponseEntity<List<Recipe>> searchForRecipes(@PathVariable("searchString") String searchString) {
+        return recipeService.searchForRecipes(searchString, null);
+    }
+
+
+    @GetMapping("/{id}/{searchString}")
+    public ResponseEntity<List<Recipe>> searchForRecipes(@PathVariable("searchString") String searchString, @PathVariable("id") Long id) {
+        return recipeService.searchForRecipes(searchString, id);
+    }
+
     @GetMapping(path="/name/{name}")
     public ResponseEntity<Recipe> getRecipeByName(@PathVariable("name") String name) {
         return recipeService.getRecipeByName(name);
@@ -59,12 +71,7 @@ public class RecipeController {
     public ResponseEntity<HttpStatus> deleteRecipeById(@PathVariable("id") long id){
         return recipeService.deleteRecipeById(id);
     }
-    /*
-    @PutMapping("/{id}")
-    public ResponseEntity<Recipe> updateRecipe(@PathVariable("id") long id, @RequestBody Recipe newRecipe) {
-        return recipeService.updateRecipe(id, newRecipe);
-    }
-    */
+
     @PutMapping("/{id}")
     public ResponseEntity<String> updateRecipe(@PathVariable Long id, @RequestBody JSONObject values) {
         Recipe recipe = new Gson().fromJson(values.toJSONString(), Recipe.class);

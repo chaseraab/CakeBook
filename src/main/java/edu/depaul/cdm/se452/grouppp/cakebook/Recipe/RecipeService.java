@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import edu.depaul.cdm.se452.grouppp.cakebook.Cookbook.*;
 import edu.depaul.cdm.se452.grouppp.cakebook.Ingredient.Ingredient;
 import edu.depaul.cdm.se452.grouppp.cakebook.Instruction.*;
+import edu.depaul.cdm.se452.grouppp.cakebook.Search.KeyValue;
+import edu.depaul.cdm.se452.grouppp.cakebook.Search.Search;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +15,6 @@ import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import edu.depaul.cdm.se452.grouppp.cakebook.Instruction.*;
 
 @Service
 public class RecipeService {
@@ -113,8 +113,6 @@ public class RecipeService {
         try {
             Recipe oldRecipe = recipeRepository.findById(id).get();
             oldRecipe.setName(newRecipe.name);
-            //oldRecipe.setIngredients(newRecipe.getIngredients());
-            //oldRecipe.setInstructions(newRecipe.getInstructions());
             oldRecipe.setCookTime(newRecipe.getCookTime());
             oldRecipe.setPrepTime(newRecipe.prepTime);
             oldRecipe.setFavorite(newRecipe.favorite);
@@ -123,11 +121,9 @@ public class RecipeService {
             recipeRepository.deleteInstructionsFromRecipe(oldRecipe.getId());
             for (Instruction i : newRecipe.getInstructions()) {
                 oldRecipe.addInstruction(i);
-                //recipeRepository.updateInstructionOwner(id, i.getId());
             }
             recipeRepository.deleteIngredientsFromRecipe(oldRecipe.getId());
             for (Ingredient i: newRecipe.getIngredients()) {
-                //recipeRepository.updateIngredientOwner(id, i.getId());
                 oldRecipe.addIngredient(i);
             }
             recipeRepository.save(oldRecipe);
@@ -136,25 +132,20 @@ public class RecipeService {
             return new ResponseEntity<>(e.toString(), HttpStatus.NOT_FOUND);
         }
     }
-/*
-    public ResponseEntity<Recipe> updateRecipe(long id, Recipe newRecipe) {
-        Optional<Recipe> searchRecipe = recipeRepository.findById(id);
-        if (searchRecipe.isPresent()) {
-            Recipe _recipe = searchRecipe.get();
-            _recipe.setName(newRecipe.getName());
-            _recipe.setIngredients(newRecipe.getIngredients());
-            _recipe.setInstructions(newRecipe.getInstructions());
-            _recipe.setName(newRecipe.getName());
-            _recipe.setCookTime(newRecipe.getCookTime());
-            _recipe.setPrepTime(newRecipe.getPrepTime());
-            _recipe.setFavorite(newRecipe.getFavorite());
-            _recipe.setIsPublic(newRecipe.getIsPublic());
-            _recipe.setAuthor(newRecipe.getAuthor());
-            return new ResponseEntity<>(recipeRepository.save(_recipe), HttpStatus.OK);
+
+    public ResponseEntity<List<Recipe>> searchForRecipes(String search, Long id) {
+        System.out.println("Reacevied searchString: " + search);
+        ArrayList<KeyValue> kvList = Search.parseSearchString(search);
+        ArrayList<Recipe> recipes = new ArrayList<>();
+        if (id == null) {
+            recipes = (ArrayList<Recipe>) recipeRepository.findAll();
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            recipes = (ArrayList<Recipe>) recipeRepository.getAllUserRecipes(id);
         }
+        System.out.println("Extracted values:");
+        for (KeyValue k : kvList) {System.out.println(k.key + " " + k.value);}
+        List<Recipe> results = Search.searchByCriteria(kvList, recipes);
+        if (results != null) {return new ResponseEntity<>(results, HttpStatus.ACCEPTED);} else {return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);}
     }
-    */
 
 }

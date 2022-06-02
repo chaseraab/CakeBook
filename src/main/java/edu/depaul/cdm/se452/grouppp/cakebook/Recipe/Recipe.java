@@ -32,8 +32,8 @@ public class Recipe {
     @JoinColumn(name = "recipe_id")
     private List<Instruction> instructions = new ArrayList<Instruction>();
     @Column(name = "cookTime")
-    String cookTime;
-    String prepTime;
+    int cookTime;
+    int prepTime;
     Boolean favorite;
     Boolean isPublic;
     String author;
