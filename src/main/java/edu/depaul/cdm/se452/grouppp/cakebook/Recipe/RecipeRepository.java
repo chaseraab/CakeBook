@@ -44,4 +44,7 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long>{
     @Transactional
     @Query(value = "update recipes set id = :recipe_id where id = :id", nativeQuery = true)
     void updateId(@Param("recipe_id") Long recipe_id, @Param("id") Long id);
+
+    @Query(value = "SELECT r.id as \"id\", r.name as \"name\", r.cook_time as \"cook_time\", r.prep_time as \"prep_time\", r.favorite as \"favorite\", r.is_public as \"is_public\", r.author as \"author\", r.mealplan_id as \"mealplan_id\" FROM RECIPES r, COOKBOOKS_RECIPES cr, USERS_COOKBOOKS uc where r.id = cr.recipe_id and cr.cookbook_id = uc.cookbook_id and uc.user_id = :id", nativeQuery = true)
+    List<Recipe> getAllUserRecipes(@Param("id") Long id);
 }
