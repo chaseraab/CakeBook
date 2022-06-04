@@ -41,7 +41,7 @@ public class MealplanService {
     }
 
     public ResponseEntity<Optional<List<Mealplan>>> getMealplans(User user) {
-        return new ResponseEntity(mealplanRepository.findById(user.getId()), HttpStatus.OK);
+        return new ResponseEntity(mealplanRepository.findAllById(user.getId()), HttpStatus.OK);
     }
 
     public ResponseEntity<String> addRecipeToMealplan(Recipe recipe, Mealplan mealplan) {
