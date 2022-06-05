@@ -13,18 +13,28 @@ public class Ingredient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    //Recipe
+    // Recipe
     String name;
     Float quantity;
     String measurement;
+    Boolean is_checked = false;
 
-    public Ingredient(){
+    public Ingredient() {
     }
 
-    public Ingredient(String name, Float quantity, String measurement){
+    public Ingredient(String name, Float quantity, String measurement, Boolean is_checked) {
+        this.name = name;
+        this.quantity = quantity;
+        this.measurement = measurement;
+        this.is_checked = is_checked;
+    }
+
+    public Ingredient(String name, Float quantity, String measurement) {
         this.name = name;
         this.quantity = quantity;
         this.measurement = measurement;
     }
+
+    
 
 }

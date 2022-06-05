@@ -60,7 +60,6 @@ public class IngredientService {
         }
     }
 
-  
     public ResponseEntity<HttpStatus> deleteIngredientById(long id) {
         try {
             ingredientRepository.deleteById(id);
@@ -76,11 +75,24 @@ public class IngredientService {
             Ingredient _ingredient = searchIngredient.get();
             _ingredient.setName(newIngredient.getName());
             _ingredient.setQuantity(newIngredient.getQuantity());
-            //_ingredient.setRecipe(newIngredient.getRecipe());
+            // _ingredient.setRecipe(newIngredient.getRecipe());
             return new ResponseEntity<>(ingredientRepository.save(_ingredient), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    public ResponseEntity<String> setCheckedIngredient(long id, Boolean checked) {
+        Optional<Ingredient> searchIngredient = ingredientRepository.findById(id);
+        if (searchIngredient.isPresent()) {
+            Ingredient _ingredient = searchIngredient.get();
+            _ingredient.setIs_checked(checked);
+            ingredientRepository.save(_ingredient);
+            return new ResponseEntity<>("Ingredient has been updated!", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Ingredient not found", HttpStatus.NOT_FOUND);
+        }
+
     }
 
 }
