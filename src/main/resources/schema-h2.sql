@@ -44,6 +44,7 @@ CREATE TABLE Ingredients(
     name VARCHAR(50) NOT NULL,
     quantity FLOAT NOT NULL,
     measurement measurements,
+    is_checked BOOLEAN,
     recipe_id bigint REFERENCES Recipes(id)
 );
 CREATE TABLE Instructions(
