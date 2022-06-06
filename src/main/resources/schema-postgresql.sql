@@ -5,13 +5,13 @@ DROP TABLE IF EXISTS Users_Mealplans;
 DROP TABLE IF EXISTS Cookbooks_Recipes;
 DROP TABLE IF EXISTS Recipes_Ingredients;
 DROP TABLE IF EXISTS Recipes_Instructions;
-DROP TABLE IF EXISTS Mealplans;
 DROP TABLE IF EXISTS Users;
 DROP TABLE IF EXISTS Cookbooks;
 DROP TABLE IF EXISTS Ingredients;
 DROP TABLE IF EXISTS Instructions;
 DROP TABLE IF EXISTS Recipes;
 DROP TYPE IF EXISTS measurements;
+DROP TABLE IF EXISTS Mealplans;
 create type measurements as enum('cup','tablespoon','teaspoon');
 CREATE TABLE Users (
     id SERIAL PRIMARY KEY,
