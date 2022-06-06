@@ -11,6 +11,7 @@ DROP TABLE IF EXISTS Cookbooks;
 DROP TABLE IF EXISTS Ingredients;
 DROP TABLE IF EXISTS Instructions;
 DROP TABLE IF EXISTS Recipes;
+DROP TYPE IF EXISTS measurements;
 create type measurements as enum('cup','tablespoon','teaspoon');
 CREATE TABLE Users (
     id SERIAL PRIMARY KEY,
