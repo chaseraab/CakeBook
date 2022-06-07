@@ -61,7 +61,9 @@ public class RecipeService {
             if (searchRecipe.isPresent()) {
                 return new ResponseEntity<>("A recipe with this name already exists.", HttpStatus.CONFLICT);
             }
+            System.out.println("Adding recipe to cookbook");
             cookbook.addRecipe(recipe);
+            System.out.println("Saving recipe to repository");
             recipeRepository.save(recipe);
             return new ResponseEntity<>("Recipe created.", HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {

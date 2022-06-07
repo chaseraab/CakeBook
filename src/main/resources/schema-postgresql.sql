@@ -1,4 +1,5 @@
 
+
 DROP TABLE IF EXISTS Users_Cookbooks;
 DROP TABLE IF EXISTS Users_Recipes;
 DROP TABLE IF EXISTS Users_Mealplans;
@@ -12,7 +13,6 @@ DROP TABLE IF EXISTS Instructions;
 DROP TABLE IF EXISTS Recipes;
 DROP TYPE IF EXISTS measurements;
 DROP TABLE IF EXISTS Mealplans;
-create type measurements as enum('cup','tablespoon','teaspoon');
 CREATE TABLE Users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE Ingredients(
     id SERIAL PRIMARY KEY,
     name VARCHAR(50) UNIQUE NOT NULL,
     quantity FLOAT NOT NULL,
-    measurement measurements,
+    measurement VARCHAR(50),
     is_checked BOOLEAN,
     recipe_id bigint REFERENCES Recipes(id)
 );

@@ -64,7 +64,18 @@ public class RecipeController {
     @PostMapping("/new/{cookbook}")
     public ResponseEntity<String> addRecipe(@PathVariable Cookbook cookbook, @RequestBody JSONObject values) {
         Recipe recipe = new Gson().fromJson(values.toJSONString(), Recipe.class);
-        return recipeService.addRecipe(cookbook, recipe);
+        System.out.println("Create recipe called");
+        System.out.println("CookBook:");
+        System.out.println(cookbook.toString());
+        System.out.println("JSON");
+        System.out.println(values.toJSONString());
+        try {
+            return recipeService.addRecipe(cookbook, recipe);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return null;
+        }
+            
     }
 
     @DeleteMapping("/{id}")

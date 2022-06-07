@@ -33,6 +33,8 @@ public class Cookbook {
     }
 
     public void addRecipe(Recipe recipe) {
+        System.out.println("Adding recipe");
+        System.out.println(recipe.toString());
         this.recipes.add(recipe);
     }
 
